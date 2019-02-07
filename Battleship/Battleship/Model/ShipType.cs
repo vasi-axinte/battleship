@@ -1,4 +1,4 @@
-﻿namespace Battleship
+﻿namespace Battleship.Model
 {
     public class ShipType
     {

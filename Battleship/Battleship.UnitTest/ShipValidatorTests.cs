@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Battleship.Model;
+using Battleship.Services;
 using FluentAssert;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -22,7 +23,7 @@ namespace Battleship.UnitTest
             var ships = new List<Ship> {shipToBeComparedWith};
 
 
-            target.IsShipValid(ship, ships).ShouldBeTrue();
+            target.IsShipValidForList(ship, ships).ShouldBeTrue();
         }
 
         [TestMethod]
@@ -35,7 +36,7 @@ namespace Battleship.UnitTest
             var ships = new List<Ship> { shipToBeComparedWith };
 
 
-            target.IsShipValid(ship, ships).ShouldBeTrue();
+            target.IsShipValidForList(ship, ships).ShouldBeTrue();
         }
 
         [TestMethod]
@@ -48,7 +49,7 @@ namespace Battleship.UnitTest
             var ships = new List<Ship> { shipToBeComparedWith };
 
 
-            target.IsShipValid(ship, ships).ShouldBeFalse();
+            target.IsShipValidForList(ship, ships).ShouldBeFalse();
         }
 
         [TestMethod]
@@ -61,7 +62,7 @@ namespace Battleship.UnitTest
             var ships = new List<Ship> { shipToBeComparedWith };
 
 
-            target.IsShipValid(ship, ships).ShouldBeFalse();
+            target.IsShipValidForList(ship, ships).ShouldBeFalse();
         }
 
         [TestMethod]
@@ -74,7 +75,7 @@ namespace Battleship.UnitTest
             var ships = new List<Ship> { shipToBeComparedWith };
 
 
-            target.IsShipValid(ship, ships).ShouldBeFalse();
+            target.IsShipValidForList(ship, ships).ShouldBeFalse();
         }
 
         [TestMethod]
@@ -87,7 +88,7 @@ namespace Battleship.UnitTest
             var ships = new List<Ship> { shipToBeComparedWith };
 
 
-            target.IsShipValid(ship, ships).ShouldBeFalse();
+            target.IsShipValidForList(ship, ships).ShouldBeFalse();
         }
 
         [TestMethod]
@@ -101,7 +102,7 @@ namespace Battleship.UnitTest
             var ships = new List<Ship> { shipToBeComparedWith };
 
 
-            target.IsShipValid(ship, ships).ShouldBeFalse();
+            target.IsShipValidForList(ship, ships).ShouldBeFalse();
         }
     }
 }

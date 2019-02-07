@@ -1,4 +1,6 @@
 ﻿using System;
+using Battleship.Model;
+using Battleship.Services;
 using FluentAssert;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

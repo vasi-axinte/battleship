@@ -50,6 +50,7 @@ namespace Battleship.Ui
 
             Console.WriteLine("Insert your next hit`s coordinates:");
             Console.SetCursorPosition(0, _topCursorPosition++);
+
             var point = _uiService.GetHitPoint(_panelSize);
             var hitResult = _gameService.GetHitResult(point);
 

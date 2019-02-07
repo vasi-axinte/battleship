@@ -12,7 +12,8 @@ namespace Battleship
     {
         static void Main(string[] args)
         {
-            IGameService gameService = new GameService();
+            IShipManager shipManager = new ShipManager();
+            IGameService gameService = new GameService(shipManager);
             UserInterface ui = new UserInterface(gameService);
 
             ui.Start();

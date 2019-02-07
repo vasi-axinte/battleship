@@ -14,27 +14,19 @@ namespace Battleship.Services
         private Dictionary<Ship, int> _shipsWithHits;
         private List<Point> _hits;
         private HitTypeEnum _lastHitType;
+        private IShipManager _shipManager;
 
-        public GameService()
+        public GameService(IShipManager shipManager)
         {
             _hits = new List<Point>();
+            _shipManager = shipManager;
         }
 
         public void InitializeGame(int panelSize)
         {
-            _panelSize = panelSize;
-            CreateShipTypes();
-            var enemyShips = GenerateEnemyShips();
+            _enemyShipsByType = _shipManager.GetEnemyShipsByType();
+            var enemyShips = _shipManager.GetEnemyShipList(_enemyShipsByType, panelSize);
             InitializeHitsPerShip(enemyShips);
-        }
-
-        private void InitializeHitsPerShip(List<Ship> enemyShips)
-        {
-            _shipsWithHits = new Dictionary<Ship, int>();
-            foreach (var ship in enemyShips)
-            {
-                _shipsWithHits.Add(ship, 0);
-            }
         }
 
         public bool GameOver()
@@ -57,6 +49,15 @@ namespace Battleship.Services
         public List<Point> GetHitList()
         {
             return _hits;
+        }
+
+        private void InitializeHitsPerShip(List<Ship> enemyShips)
+        {
+            _shipsWithHits = new Dictionary<Ship, int>();
+            foreach (var ship in enemyShips)
+            {
+                _shipsWithHits.Add(ship, 0);
+            }
         }
 
         private void PerformHit(Point point)
@@ -85,51 +86,6 @@ namespace Battleship.Services
         {
             return ship.HeadPoint.X <= point.X && point.X <= ship.TailPoint.X &&
                    ship.HeadPoint.Y <= point.Y && point.Y <= ship.TailPoint.Y;
-        }
-
-        private void CreateShipTypes()
-        {
-            var battleshipType = new ShipType("Battleship", 'B', 5);
-            var destroyerType = new ShipType("Destroyer", 'D', 4);
-
-            //_enemyShipsByType = new Dictionary<ShipType, int> {{battleshipType, 1}, {destroyerType, 2}};
-            _enemyShipsByType = new Dictionary<ShipType, int> {{battleshipType, 1}};
-        }
-
-        private List<Ship> GenerateEnemyShips()
-        {
-            var existingShips = new List<Ship>();
-
-            foreach (var keyValuePair in _enemyShipsByType)
-            {
-                GenerateAllTheShipsByType(keyValuePair.Key, keyValuePair.Value, existingShips);
-            }
-
-            return existingShips;
-        }
-
-        private void GenerateAllTheShipsByType(ShipType shipType, int numberOfShipsByType, List<Ship> existingShips)
-        {
-            var shipGenerator = new ShipGenerator();
-
-            for (var i = 0; i < numberOfShipsByType; i++)
-            {
-                var currentShip = GetNextValidShip(existingShips, shipGenerator, shipType);
-                existingShips.Add(currentShip);
-            }
-        }
-
-        private Ship GetNextValidShip(List<Ship> ships, ShipGenerator shipGenerator, ShipType shipType)
-        {
-            var shipValidator = new ShipValidator();
-            Ship currentShip;
-
-            do
-            {
-                currentShip = shipGenerator.GenerateShip(shipType, _panelSize);
-            } while (!shipValidator.IsShipValid(currentShip, ships));
-
-            return currentShip;
         }
     }
 }

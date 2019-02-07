@@ -5,15 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Battleship.Model;
 
-namespace Battleship
+namespace Battleship.Services
 {
     public class ShipValidator
     {
-        public bool IsShipValid(Ship ship, List<Ship> ships)
+        public bool IsShipValidForList(Ship ship, List<Ship> ships)
         {
             foreach (var shipToBeCheckedAgainst in ships)
             {
-                if (Intersects(ship, shipToBeCheckedAgainst)) return false;
+                if (AreIntersecting(ship, shipToBeCheckedAgainst)) return false;
                 if (AreOverlaping(ship, shipToBeCheckedAgainst)) return false;
             }
             return true;
@@ -30,7 +30,7 @@ namespace Battleship
             return false;
         }
 
-        private bool Intersects(Ship ship1, Ship ship2)
+        private bool AreIntersecting(Ship ship1, Ship ship2)
         {
             if (AreParallel(ship1, ship2)) return false;
             if (ship1.HeadPoint.X == ship1.TailPoint.X)
