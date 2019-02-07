@@ -77,9 +77,8 @@ namespace Battleship.Services
                 _lastHitType = _shipsWithHits[ship] + 1 == ship.Type.Size ? HitTypeEnum.Sink : HitTypeEnum.Hit;
 
                 _shipsWithHits[ship] += 1;
-
-                _hits.Add(point);
             }
+            _hits.Add(point);
         }
 
         private bool ShipIsHitInPoint(Point point, Ship ship)

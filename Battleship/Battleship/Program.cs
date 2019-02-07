@@ -16,6 +16,7 @@ namespace Battleship
             UserInterface ui = new UserInterface(gameService);
 
             ui.Start();
+            Console.ReadLine();
         }
     }
 }

@@ -44,7 +44,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Game.cs" />
     <Compile Include="Model\HitTypeEnum.cs" />
     <Compile Include="Model\Point.cs" />
     <Compile Include="Program.cs" />
@@ -55,6 +54,7 @@
     <Compile Include="ShipType.cs" />
     <Compile Include="ShipValidator.cs" />
     <Compile Include="Services\IGameService.cs" />
+    <Compile Include="Ui\UiService.cs" />
     <Compile Include="Ui\UserInterface.cs" />
   </ItemGroup>
   <ItemGroup>
