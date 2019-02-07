@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Battleship.Services;
+using Battleship.Ui;
 
 namespace Battleship
 {
@@ -10,9 +12,10 @@ namespace Battleship
     {
         static void Main(string[] args)
         {
-            Game game = new Game();
-            game.Start();
-            Console.ReadLine();
+            IGameService gameService = new GameService();
+            UserInterface ui = new UserInterface(gameService);
+
+            ui.Start();
         }
     }
 }
