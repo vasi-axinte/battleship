@@ -10,12 +10,13 @@ namespace Battleship.Ui
 {
     public class UserInterface
     {
-        private int _panelSize = 10;
-
         private UiService _uiService;
         private IGameService _gameService;
-        private int _topCursorPosition = 25;
 
+        private HitTypeEnum _lastHitResult;
+        private bool _firstMove = true;
+        private int _panelSize = 10;
+        
         public UserInterface(IGameService gameService)
         {
             _gameService = gameService;
@@ -26,36 +27,49 @@ namespace Battleship.Ui
         {
             Console.WriteLine("Initializing game...");
             _gameService.InitializeGame(_panelSize);
-            var ships = _gameService.GetEnemyShipList();
-            var shipPanel = _uiService.GetPanelFromShipList(ships, _panelSize);
-
-            Console.WriteLine("Initial Panel");
-            DisplayPanel(shipPanel);
-            Console.WriteLine("---------------------------");
 
             while (!_gameService.GameOver())
             {
+                Console.Clear();;
+                DisplayShipPanel();
+                DisplayHitPanel();
+                DisplayLastHitResult();
                 MakeMove();
+                _firstMove = false;
             }
 
             Console.WriteLine("Game is over.");
+        }
+
+        private void DisplayLastHitResult()
+        {
+            if(!_firstMove) Console.WriteLine(_lastHitResult);
+        }
+
+        private void DisplayHitPanel()
+        {
+            var hitPoints = _gameService.GetHitList();
+            Console.WriteLine("Hit Panel");
+            DisplayPanel(_uiService.GetPanelFromPointList(hitPoints, _panelSize));
+            Console.WriteLine("Last hit: ");
+        }
+
+        private void DisplayShipPanel()
+        {
+            var ships = _gameService.GetEnemyShipList();
+            var shipPanel = _uiService.GetPanelFromShipList(ships, _panelSize);
+            Console.WriteLine("Ship Panel");
             DisplayPanel(shipPanel);
+            Console.WriteLine("---------------------------");
         }
 
         private void MakeMove()
         {
-            Console.SetCursorPosition(0, 13);
-            var hitPoints = _gameService.GetHitList();
-            DisplayPanel(_uiService.GetPanelFromPointList(hitPoints, _panelSize));
-
             Console.WriteLine("Insert your next hit`s coordinates:");
-            Console.SetCursorPosition(0, _topCursorPosition++);
 
             var point = _uiService.GetHitPoint(_panelSize);
-            var hitResult = _gameService.GetHitResult(point);
-
-            Console.SetCursorPosition(Console.CursorLeft + 3, Console.CursorTop - 1);
-            Console.Write("->It`s a " + hitResult + "!");
+            if(point.X == -1 || point.Y == -1) return;
+            _lastHitResult = _gameService.GetHitResult(point);
         }
 
         private void DisplayPanel(char[,] panel)
