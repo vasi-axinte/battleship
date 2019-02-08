@@ -134,5 +134,32 @@ namespace Battleship.UnitTest
 
             target.GameOver().ShouldBeTrue();
         }
+
+        [TestMethod]
+        public void GetHitList_WithFourHits_ReturnsListWithAllOfThem()
+        {
+            int panelSize = 10;
+            IShipManager shipManager = Substitute.For<IShipManager>();
+            var destroyerType = new ShipType("Destroyer", 'D', 4);
+            var shipsByType = new Dictionary<ShipType, int> { { destroyerType, 1 } };
+            var ship = new Ship(new Point(3, 2), new Point(3, 5), destroyerType);
+            var shipList = new List<Ship> { ship };
+            shipManager.GetEnemyShipsByType().Returns(shipsByType);
+            shipManager.GetEnemyShipList(shipsByType, panelSize).Returns(shipList);
+            GameService target = new GameService(shipManager);
+            target.InitializeGame(panelSize);
+            var missPoint = new Point(0, 0);
+            var hitPoint1 = new Point(3, 2);
+            var hitPoint2 = new Point(3, 3);
+            var hitPoint3 = new Point(3, 4);
+            var hitList = new List<Point> {missPoint, hitPoint1, hitPoint2, hitPoint3};
+
+            target.GetHitResult(missPoint);
+            target.GetHitResult(hitPoint1);
+            target.GetHitResult(hitPoint2);
+            target.GetHitResult(hitPoint3);
+
+            target.GetHitList().ShouldContainAll(hitList);
+        }
     }
 }
