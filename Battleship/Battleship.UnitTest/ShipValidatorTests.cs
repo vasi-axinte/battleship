@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Battleship.Model;
 using Battleship.Services;
-using FluentAssert;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Battleship.UnitTest
@@ -22,8 +22,7 @@ namespace Battleship.UnitTest
             var shipToBeComparedWith = new Ship(new Point(5, 1), new Point(5, 4), shipType);
             var ships = new List<Ship> {shipToBeComparedWith};
 
-
-            target.IsShipValidForList(ship, ships).ShouldBeTrue();
+            target.IsShipValidForList(ship, ships).Should().BeTrue();
         }
 
         [TestMethod]
@@ -35,8 +34,7 @@ namespace Battleship.UnitTest
             var shipToBeComparedWith = new Ship(new Point(2, 3), new Point(5, 3), shipType);
             var ships = new List<Ship> { shipToBeComparedWith };
 
-
-            target.IsShipValidForList(ship, ships).ShouldBeTrue();
+            target.IsShipValidForList(ship, ships).Should().BeTrue();
         }
 
         [TestMethod]
@@ -48,8 +46,7 @@ namespace Battleship.UnitTest
             var shipToBeComparedWith = new Ship(new Point(2, 2), new Point(5, 2), shipType);
             var ships = new List<Ship> { shipToBeComparedWith };
 
-
-            target.IsShipValidForList(ship, ships).ShouldBeFalse();
+            target.IsShipValidForList(ship, ships).Should().BeFalse();
         }
 
         [TestMethod]
@@ -61,8 +58,7 @@ namespace Battleship.UnitTest
             var shipToBeComparedWith = new Ship(new Point(0, 4), new Point(3, 4), shipType);
             var ships = new List<Ship> { shipToBeComparedWith };
 
-
-            target.IsShipValidForList(ship, ships).ShouldBeFalse();
+            target.IsShipValidForList(ship, ships).Should().BeFalse();
         }
 
         [TestMethod]
@@ -74,8 +70,7 @@ namespace Battleship.UnitTest
             var shipToBeComparedWith = new Ship(new Point(3, 2), new Point(3, 5), shipType);
             var ships = new List<Ship> { shipToBeComparedWith };
 
-
-            target.IsShipValidForList(ship, ships).ShouldBeFalse();
+            target.IsShipValidForList(ship, ships).Should().BeFalse();
         }
 
         [TestMethod]
@@ -87,8 +82,7 @@ namespace Battleship.UnitTest
             var shipToBeComparedWith = new Ship(new Point(2, 3), new Point(5, 3), shipType);
             var ships = new List<Ship> { shipToBeComparedWith };
 
-
-            target.IsShipValidForList(ship, ships).ShouldBeFalse();
+            target.IsShipValidForList(ship, ships).Should().BeFalse();
         }
 
         [TestMethod]
@@ -101,8 +95,7 @@ namespace Battleship.UnitTest
             var shipToBeComparedWith = new Ship(new Point(3, 1), new Point(3, 5), shipType2);
             var ships = new List<Ship> { shipToBeComparedWith };
 
-
-            target.IsShipValidForList(ship, ships).ShouldBeFalse();
+            target.IsShipValidForList(ship, ships).Should().BeFalse();
         }
     }
 }

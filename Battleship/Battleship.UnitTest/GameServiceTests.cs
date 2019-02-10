@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Battleship.Model;
 using Battleship.Services;
-using FluentAssert;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 
@@ -29,7 +29,7 @@ namespace Battleship.UnitTest
 
             target.InitializeGame(panelSize);
 
-            target.GetEnemyShipList().ShouldContainAll(shipList);
+            target.GetEnemyShipList().Should().Contain(shipList);
         }
 
         [TestMethod]
@@ -46,9 +46,9 @@ namespace Battleship.UnitTest
             GameService target = new GameService(shipManager);
             target.InitializeGame(panelSize);
 
-            var result = target.GetHitResult(new Point(1, 1));
+            var result = target.Hit(new Point(1, 1));
 
-            result.ShouldBeEqualTo(HitTypeEnum.Miss);
+            result.Should().Be(HitTypeEnum.Miss);
         }
 
         [TestMethod]
@@ -65,9 +65,9 @@ namespace Battleship.UnitTest
             GameService target = new GameService(shipManager);
             target.InitializeGame(panelSize);
 
-            var result = target.GetHitResult(new Point(3, 2));
+            var result = target.Hit(new Point(3, 2));
 
-            result.ShouldBeEqualTo(HitTypeEnum.Hit);
+            result.Should().Be(HitTypeEnum.Hit);
         }
 
         [TestMethod]
@@ -84,12 +84,12 @@ namespace Battleship.UnitTest
             GameService target = new GameService(shipManager);
             target.InitializeGame(panelSize);
 
-            target.GetHitResult(new Point(3, 2));
-            target.GetHitResult(new Point(3, 3));
-            target.GetHitResult(new Point(3, 4));
-            var result = target.GetHitResult(new Point(3, 5));
+            target.Hit(new Point(3, 2));
+            target.Hit(new Point(3, 3));
+            target.Hit(new Point(3, 4));
+            var result = target.Hit(new Point(3, 5));
 
-            result.ShouldBeEqualTo(HitTypeEnum.Sink);
+            result.Should().Be(HitTypeEnum.Sink);
         }
 
         [TestMethod]
@@ -106,11 +106,11 @@ namespace Battleship.UnitTest
             GameService target = new GameService(shipManager);
             target.InitializeGame(panelSize);
 
-            target.GetHitResult(new Point(3, 2));
-            target.GetHitResult(new Point(3, 3));
-            target.GetHitResult(new Point(3, 4));
+            target.Hit(new Point(3, 2));
+            target.Hit(new Point(3, 3));
+            target.Hit(new Point(3, 4));
 
-            target.GameOver().ShouldBeFalse();
+            target.GameOver().Should().BeFalse();
         }
 
         [TestMethod]
@@ -127,12 +127,12 @@ namespace Battleship.UnitTest
             GameService target = new GameService(shipManager);
             target.InitializeGame(panelSize);
 
-            target.GetHitResult(new Point(3, 2));
-            target.GetHitResult(new Point(3, 3));
-            target.GetHitResult(new Point(3, 4));
-            target.GetHitResult(new Point(3, 5));
+            target.Hit(new Point(3, 2));
+            target.Hit(new Point(3, 3));
+            target.Hit(new Point(3, 4));
+            target.Hit(new Point(3, 5));
 
-            target.GameOver().ShouldBeTrue();
+            target.GameOver().Should().BeTrue();
         }
 
         [TestMethod]
@@ -154,12 +154,12 @@ namespace Battleship.UnitTest
             var hitPoint3 = new Point(3, 4);
             var hitList = new List<Point> {missPoint, hitPoint1, hitPoint2, hitPoint3};
 
-            target.GetHitResult(missPoint);
-            target.GetHitResult(hitPoint1);
-            target.GetHitResult(hitPoint2);
-            target.GetHitResult(hitPoint3);
+            target.Hit(missPoint);
+            target.Hit(hitPoint1);
+            target.Hit(hitPoint2);
+            target.Hit(hitPoint3);
 
-            target.GetHitList().ShouldContainAll(hitList);
+            target.GetHitList().Should().Contain(hitList);
         }
     }
 }
