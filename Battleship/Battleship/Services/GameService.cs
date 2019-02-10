@@ -9,7 +9,6 @@ namespace Battleship.Services
 {
     public class GameService : IGameService
     {
-        private int _panelSize;
         private Dictionary<ShipType, int> _enemyShipsByType;
         private Dictionary<Ship, int> _shipsWithHits;
         private List<Point> _hits;
@@ -34,7 +33,7 @@ namespace Battleship.Services
             return _shipsWithHits.All(hitPerShipPair => hitPerShipPair.Key.Type.Size == hitPerShipPair.Value);
         }
 
-        public HitTypeEnum GetHitResult(Point point)
+        public HitTypeEnum Hit(Point point)
         {
             PerformHit(point);
 

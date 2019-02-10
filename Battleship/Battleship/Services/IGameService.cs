@@ -7,7 +7,7 @@ namespace Battleship.Services
     {
         void InitializeGame(int panelSize);
         bool GameOver();
-        HitTypeEnum GetHitResult(Point point);
+        HitTypeEnum Hit(Point point);
         List<Ship> GetEnemyShipList();
         List<Point> GetHitList();
     }

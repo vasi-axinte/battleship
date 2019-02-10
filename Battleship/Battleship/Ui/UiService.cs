@@ -23,38 +23,45 @@ namespace Battleship.Ui
             var x = alphabet.IndexOf(coordinatesAsString[0].ToString().ToUpper());
             var y = Convert.ToInt32(coordinatesAsString.Substring(1)) - 1;
 
-            return new Point(x, y);
+            return new Point(x+1, y+1);
         }
 
 
-        public char[,] GetPanelFromShipList(List<Ship> ships, int panelSize)
+        public string[,] GetPanelFromShipList(List<Ship> ships, int panelSize)
         {
             var panel = GenerateShipPanel(ships, panelSize);
 
             return panel;
         }
 
-        public char[,] GetPanelFromPointList(List<Point> points, int panelSize)
+        public string[,] GetPanelFromPointList(List<Point> points, int panelSize)
         {
             var panel = GenerateEmptyPanel(panelSize);
             foreach (var point in points)
             {
-                panel[point.X, point.Y] = 'X';
+                panel[point.X, point.Y] = "X";
             }
 
             return panel;
         }
 
-        private char[,] GenerateEmptyPanel(int panelSize)
+        private string[,] GenerateEmptyPanel(int panelSize)
         {
-            var matrix = new char[panelSize, panelSize];
-            for (var i = 0; i < panelSize; i++)
+            var matrix = new string[panelSize+1, panelSize+1];
+            for (var i = 0; i < panelSize+1; i++)
             {
-                for (var j = 0; j < panelSize; j++)
+                for (var j = 0; j < panelSize+1; j++)
                 {
-                    matrix[i, j] = '~';
+                    matrix[i, j] = "~";
                 }
             }
+
+            for (var i = 0; i < panelSize; i++)
+            {
+                matrix[i+1, 0] = alphabet[i].ToString();
+                matrix[0, i + 1] = (i + 1).ToString();
+            }
+
             return matrix;
         }
 
@@ -70,7 +77,7 @@ namespace Battleship.Ui
         }
 
 
-        private char[,] GenerateShipPanel(List<Ship> ships, int panelSize)
+        private string[,] GenerateShipPanel(List<Ship> ships, int panelSize)
         {
             var panel = GenerateEmptyPanel(panelSize);
             foreach (var ship in ships)

@@ -9,15 +9,19 @@ namespace Battleship.Services
 
         public Ship GenerateShip(ShipType shipType, int panelSize)
         {
+            if (panelSize < shipType.Size)
+            {
+                throw new ArgumentException("Panel size cannot be smaller than ship size");
+            }
             var headPoint = GenerateHeadPoint(panelSize);
             var tailPoint = GenerateTailPoint(shipType, headPoint, panelSize);
 
-            OrderPoints(headPoint, tailPoint);
+            OrderShipPoints(headPoint, tailPoint);
 
             return new Ship(headPoint, tailPoint, shipType);
         }
 
-        private void OrderPoints(Point headPoint, Point tailPoint)
+        private void OrderShipPoints(Point headPoint, Point tailPoint)
         {
             if (tailPoint.X < headPoint.X)
             {

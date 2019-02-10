@@ -2,7 +2,7 @@
 {
     public class ShipType
     {
-        public ShipType(string name, char symbol, int size)
+        public ShipType(string name, string symbol, int size)
         {
             Name = name;
             Symbol = symbol;
@@ -11,7 +11,7 @@
 
         public string Name { get; }
 
-        public char Symbol { get; }
+        public string Symbol { get; }
 
         public int Size { get; }
     }

@@ -10,6 +10,8 @@ namespace Battleship.Ui
 {
     public class UserInterface
     {
+        string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
         private UiService _uiService;
         private IGameService _gameService;
 
@@ -50,7 +52,8 @@ namespace Battleship.Ui
         {
             var hitPoints = _gameService.GetHitList();
             Console.WriteLine("Hit Panel");
-            DisplayPanel(_uiService.GetPanelFromPointList(hitPoints, _panelSize));
+            //DisplayPanel(_uiService.GetPanelFromPointList(hitPoints, _panelSize));
+            DisplayHitPanelTest();
             Console.WriteLine("Last hit: ");
         }
 
@@ -59,8 +62,13 @@ namespace Battleship.Ui
             var ships = _gameService.GetEnemyShipList();
             var shipPanel = _uiService.GetPanelFromShipList(ships, _panelSize);
             Console.WriteLine("Ship Panel");
-            DisplayPanel(shipPanel);
+            //DisplayPanel(shipPanel);
             Console.WriteLine("---------------------------");
+
+            Console.WriteLine("Ship Panel with no panel");
+            DisplayShipPanelTest();
+            Console.WriteLine("---------------------------");
+
         }
 
         private void MakeMove()
@@ -69,11 +77,12 @@ namespace Battleship.Ui
 
             var point = _uiService.GetHitPoint(_panelSize);
             if(point.X == -1 || point.Y == -1) return;
-            _lastHitResult = _gameService.GetHitResult(point);
+            _lastHitResult = _gameService.Hit(point);
         }
 
-        private void DisplayPanel(char[,] panel)
+        private void DisplayPanel(string[,] panel)
         {
+            Console.WriteLine("   ");
             for (var i = 0; i < panel.GetLength(0); i++)
             {
                 for (var j = 0; j < panel.GetLength(1); j++)
@@ -84,9 +93,83 @@ namespace Battleship.Ui
             }
         }
 
-        public void DisplayInfo(string info)
+        private void DisplayShipPanelTest()
         {
-            Console.WriteLine(info);
+            for (var i = 0; i < _panelSize + 1; i++)
+            {
+                for (var j = 0; j < _panelSize + 1; j++)
+                {
+                    Console.Write(GetSymbolForShipPanel(i, j) + " ");
+                }
+                Console.WriteLine();
+            }
+        }
+
+        private void DisplayHitPanelTest()
+        {
+            for (var i = 0; i < _panelSize + 1; i++)
+            {
+                for (var j = 0; j < _panelSize + 1; j++)
+                {
+                    Console.Write(GetSymbolForHitPanel(i, j) + " ");
+                }
+                Console.WriteLine();
+            }
+        }
+
+        private string GetSymbolForShipPanel(int i, int j)
+        {
+            var ships = _gameService.GetEnemyShipList();
+
+            if (i == 0 && j == 0)
+            {
+                return " ";
+            }
+
+            if (i == 0)
+            {
+                return j.ToString();
+            }
+
+            if (j == 0)
+            {
+                return alphabet[i-1].ToString();
+            }
+
+            foreach (var ship in ships)
+            {
+                if (i >= ship.HeadPoint.X && i <= ship.TailPoint.X && ship.HeadPoint.Y == j) return ship.Type.Symbol;
+
+                if (i >= ship.TailPoint.X && i <= ship.HeadPoint.X && ship.HeadPoint.Y == j) return ship.Type.Symbol;
+
+                if (j >= ship.HeadPoint.Y && j <= ship.TailPoint.Y && ship.HeadPoint.X == i) return ship.Type.Symbol;
+
+                if (j >= ship.TailPoint.Y && j <= ship.HeadPoint.Y && ship.HeadPoint.X == i) return ship.Type.Symbol;
+            }
+
+            return "~";
+        }
+
+        private string GetSymbolForHitPanel(int i, int j)
+        {
+            var points = _gameService.GetHitList();
+
+            if (i == 0 && j == 0)
+            {
+                return " ";
+            }
+
+            if (i == 0)
+            {
+                return j.ToString();
+            }
+
+            if (j == 0)
+            {
+                return alphabet[i - 1].ToString();
+            }
+
+            return points.Any(point => i == point.X && j == point.Y) ? "X" : "~";
         }
     }
 }

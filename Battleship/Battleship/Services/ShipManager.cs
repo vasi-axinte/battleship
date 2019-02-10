@@ -11,8 +11,8 @@ namespace Battleship.Services
     {
         public Dictionary<ShipType, int> GetEnemyShipsByType()
         {
-            var battleshipType = new ShipType("Battleship", 'B', 5);
-            var destroyerType = new ShipType("Destroyer", 'D', 4);
+            var battleshipType = new ShipType("Battleship", "B", 5);
+            var destroyerType = new ShipType("Destroyer", "D", 4);
 
             return new Dictionary<ShipType, int> { { battleshipType, 1 }, { destroyerType, 2 } };
         }

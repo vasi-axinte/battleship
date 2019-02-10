@@ -16,7 +16,7 @@ namespace Battleship.UnitTest
             ShipGenerator generator = new ShipGenerator();
 
             var panelSize = 10;
-            var ship = generator.GenerateShip(new ShipType("Battleship", 'B', 5), panelSize);
+            var ship = generator.GenerateShip(new ShipType("Battleship", "B", 5), panelSize);
 
             ship.HeadPoint.X.Should().BeLessThan(panelSize);
             ship.HeadPoint.Y.Should().BeLessThan(panelSize);
@@ -30,7 +30,7 @@ namespace Battleship.UnitTest
             ShipGenerator generator = new ShipGenerator();
             var panelSize = 3;
 
-            Action a = () => generator.GenerateShip(new ShipType("Battleship", 'B', 5), panelSize);
+            Action a = () => generator.GenerateShip(new ShipType("Battleship", "B", 5), panelSize);
 
             a.Should().Throw<ArgumentException>();
         }

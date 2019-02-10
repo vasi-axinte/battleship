@@ -19,7 +19,7 @@ namespace Battleship.UnitTest
         {
             int panelSize = 10;
             IShipManager shipManager = Substitute.For<IShipManager>();
-            var destroyerType = new ShipType("Destroyer", 'D', 4);
+            var destroyerType = new ShipType("Destroyer", "D", 4);
             var shipsByType =  new Dictionary<ShipType, int> { { destroyerType, 1 } };
             var ship = new Ship(new Point(3, 2), new Point(3, 5), destroyerType);
             var shipList = new List<Ship> {ship};
@@ -37,7 +37,7 @@ namespace Battleship.UnitTest
         {
             int panelSize = 10;
             IShipManager shipManager = Substitute.For<IShipManager>();
-            var destroyerType = new ShipType("Destroyer", 'D', 4);
+            var destroyerType = new ShipType("Destroyer", "D", 4);
             var shipsByType = new Dictionary<ShipType, int> { { destroyerType, 1 } };
             var ship = new Ship(new Point(3, 2), new Point(3, 5), destroyerType);
             var shipList = new List<Ship> { ship };
@@ -56,7 +56,7 @@ namespace Battleship.UnitTest
         {
             int panelSize = 10;
             IShipManager shipManager = Substitute.For<IShipManager>();
-            var destroyerType = new ShipType("Destroyer", 'D', 4);
+            var destroyerType = new ShipType("Destroyer", "D", 4);
             var shipsByType = new Dictionary<ShipType, int> { { destroyerType, 1 } };
             var ship = new Ship(new Point(3, 2), new Point(3, 5), destroyerType);
             var shipList = new List<Ship> { ship };
@@ -75,7 +75,7 @@ namespace Battleship.UnitTest
         {
             int panelSize = 10;
             IShipManager shipManager = Substitute.For<IShipManager>();
-            var destroyerType = new ShipType("Destroyer", 'D', 4);
+            var destroyerType = new ShipType("Destroyer", "D", 4);
             var shipsByType = new Dictionary<ShipType, int> { { destroyerType, 1 } };
             var ship = new Ship(new Point(3, 2), new Point(3, 5), destroyerType);
             var shipList = new List<Ship> { ship };
@@ -97,7 +97,7 @@ namespace Battleship.UnitTest
         {
             int panelSize = 10;
             IShipManager shipManager = Substitute.For<IShipManager>();
-            var destroyerType = new ShipType("Destroyer", 'D', 4);
+            var destroyerType = new ShipType("Destroyer", "D", 4);
             var shipsByType = new Dictionary<ShipType, int> { { destroyerType, 1 } };
             var ship = new Ship(new Point(3, 2), new Point(3, 5), destroyerType);
             var shipList = new List<Ship> { ship };
@@ -118,7 +118,7 @@ namespace Battleship.UnitTest
         {
             int panelSize = 10;
             IShipManager shipManager = Substitute.For<IShipManager>();
-            var destroyerType = new ShipType("Destroyer", 'D', 4);
+            var destroyerType = new ShipType("Destroyer", "D", 4);
             var shipsByType = new Dictionary<ShipType, int> { { destroyerType, 1 } };
             var ship = new Ship(new Point(3, 2), new Point(3, 5), destroyerType);
             var shipList = new List<Ship> { ship };
@@ -140,7 +140,7 @@ namespace Battleship.UnitTest
         {
             int panelSize = 10;
             IShipManager shipManager = Substitute.For<IShipManager>();
-            var destroyerType = new ShipType("Destroyer", 'D', 4);
+            var destroyerType = new ShipType("Destroyer", "D", 4);
             var shipsByType = new Dictionary<ShipType, int> { { destroyerType, 1 } };
             var ship = new Ship(new Point(3, 2), new Point(3, 5), destroyerType);
             var shipList = new List<Ship> { ship };
