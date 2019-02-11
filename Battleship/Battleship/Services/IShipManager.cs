@@ -9,7 +9,7 @@ namespace Battleship.Services
 {
     public interface IShipManager
     {
-        Dictionary<ShipType, int> GetEnemyShipsByType();
-        List<Ship> GetEnemyShipList(Dictionary<ShipType, int> enemyShipsByType, int panelSize);
+        Dictionary<ShipType, int> GetShipsByType();
+        List<Ship> GetShipList(Dictionary<ShipType, int> enemyShipsByType, int panelSize);
     }
 }

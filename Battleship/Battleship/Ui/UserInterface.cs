@@ -10,9 +10,7 @@ namespace Battleship.Ui
 {
     public class UserInterface
     {
-        string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-        private UiService _uiService;
+        private UiHelper _uiHelper;
         private IGameService _gameService;
 
         private HitTypeEnum _lastHitResult;
@@ -22,7 +20,7 @@ namespace Battleship.Ui
         public UserInterface(IGameService gameService)
         {
             _gameService = gameService;
-            _uiService = new UiService();
+            _uiHelper = new UiHelper();
         }
 
         public void Start()
@@ -51,7 +49,7 @@ namespace Battleship.Ui
         private void DisplayHitPanel()
         {
             Console.WriteLine("Hit Panel");
-            PrintShipPanel(GetSymbolForHitPanel);
+            PrintPanel(GetSymbolsForHitPanel);
             Console.WriteLine("Last hit: ");
         }
 
@@ -59,35 +57,34 @@ namespace Battleship.Ui
         {
             Console.WriteLine("Ship Panel");
             Console.WriteLine("---------------------------");
-            PrintShipPanel(GetSymbolForShipPanel);
+            PrintPanel(GetSymbolsForShipPanel);
             Console.WriteLine("---------------------------");
-
         }
 
         private void MakeMove()
         {
             Console.WriteLine("Insert your next hit`s coordinates:");
 
-            var point = _uiService.GetHitPoint(_panelSize);
+            var point = _uiHelper.GetHitPoint(_panelSize);
             if(point.X == -1 || point.Y == -1) return;
             _lastHitResult = _gameService.Hit(point);
         }
 
-        private void PrintShipPanel(Func<int, int, string> panelPointSelector)
+        private void PrintPanel(Func<int, int, string> getSymbol)
         {
-            PrintFirstLine();
+            PrintPanelHeaderLine();
             for (var i = 0; i < _panelSize; i++)
             {
-                Console.Write(alphabet[i]+" ");
+                Console.Write(UiConstants.Alphabet[i] + " ");
                 for (var j = 0; j < _panelSize; j++)
                 {
-                    Console.Write(panelPointSelector(i, j) + " ");
+                    Console.Write(getSymbol(i, j) + " ");
                 }
                 Console.WriteLine();
             }
         }
 
-        private void PrintFirstLine()
+        private void PrintPanelHeaderLine()
         {
             Console.Write("  ");
             for (var i = 0; i < _panelSize; i++)
@@ -97,28 +94,16 @@ namespace Battleship.Ui
             Console.WriteLine();
         }
 
-        private string GetSymbolForShipPanel(int i, int j)
+        private string GetSymbolsForShipPanel(int i, int j)
         {
-            var ships = _gameService.GetEnemyShipList();
-
-            foreach (var ship in ships)
-            {
-                if (i >= ship.HeadPoint.X && i <= ship.TailPoint.X && ship.HeadPoint.Y == j) return ship.Type.Symbol;
-
-                if (i >= ship.TailPoint.X && i <= ship.HeadPoint.X && ship.HeadPoint.Y == j) return ship.Type.Symbol;
-
-                if (j >= ship.HeadPoint.Y && j <= ship.TailPoint.Y && ship.HeadPoint.X == i) return ship.Type.Symbol;
-
-                if (j >= ship.TailPoint.Y && j <= ship.HeadPoint.Y && ship.HeadPoint.X == i) return ship.Type.Symbol;
-            }
-
-            return "~";
+            var ships = _gameService.GetShipList();
+            return _uiHelper.GetSymbolAtPoint(i, j, ships);
         }
 
-        private string GetSymbolForHitPanel(int i, int j)
+        private string GetSymbolsForHitPanel(int i, int j)
         {
             var points = _gameService.GetHitList();
-            return points.Any(point => i == point.X && j == point.Y) ? "X" : "~";
+            return _uiHelper.GetSymbolAtPoint(i, j, points);
         }
     }
 }

@@ -23,24 +23,24 @@ namespace Battleship.Services
 
         public void InitializeGame(int panelSize)
         {
-            _enemyShipsByType = _shipManager.GetEnemyShipsByType();
-            var enemyShips = _shipManager.GetEnemyShipList(_enemyShipsByType, panelSize);
+            _enemyShipsByType = _shipManager.GetShipsByType();
+            var enemyShips = _shipManager.GetShipList(_enemyShipsByType, panelSize);
             InitializeHitsPerShip(enemyShips);
         }
 
         public bool GameOver()
         {
-            return _shipsWithHits.All(hitPerShipPair => hitPerShipPair.Key.Type.Size == hitPerShipPair.Value);
+            return _shipsWithHits.All(hitPerShipPair => hitPerShipPair.Key.Type.Size <= hitPerShipPair.Value);
         }
 
         public HitTypeEnum Hit(Point point)
         {
-            PerformHit(point);
+            ProcessHit(point);
 
             return _lastHitType;
         }
 
-        public List<Ship> GetEnemyShipList()
+        public List<Ship> GetShipList()
         {
             return _shipsWithHits.Keys.ToList();
         }
@@ -59,19 +59,18 @@ namespace Battleship.Services
             }
         }
 
-        private void PerformHit(Point point)
+        private void ProcessHit(Point point)
         {
             _lastHitType = HitTypeEnum.Miss;
 
-            var ships = _shipsWithHits.Keys.ToList();
-            foreach (var ship in ships)
+            foreach (var ship in _shipsWithHits.Keys)
             {
                 if (!ShipIsHitInPoint(point, ship)) continue;
 
                 if (_hits.Contains(point))
                 {
-                    _lastHitType = HitTypeEnum.Hit;
-                    continue;
+                    _lastHitType = HitTypeEnum.AlreadyHit;
+                    return;
                 }
 
                 _lastHitType = _shipsWithHits[ship] + 1 == ship.Type.Size ? HitTypeEnum.Sink : HitTypeEnum.Hit;

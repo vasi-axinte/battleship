@@ -10,6 +10,7 @@ namespace Battleship.Model
     {
         Miss = 0,
         Hit = 1,
-        Sink = 2
+        Sink = 2,
+        AlreadyHit
     }
 }

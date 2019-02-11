@@ -23,13 +23,13 @@ namespace Battleship.UnitTest
             var shipsByType =  new Dictionary<ShipType, int> { { destroyerType, 1 } };
             var ship = new Ship(new Point(3, 2), new Point(3, 5), destroyerType);
             var shipList = new List<Ship> {ship};
-            shipManager.GetEnemyShipsByType().Returns(shipsByType);
-            shipManager.GetEnemyShipList(shipsByType, panelSize).Returns(shipList);
+            shipManager.GetShipsByType().Returns(shipsByType);
+            shipManager.GetShipList(shipsByType, panelSize).Returns(shipList);
             GameService target = new GameService(shipManager);
 
             target.InitializeGame(panelSize);
 
-            target.GetEnemyShipList().Should().Contain(shipList);
+            target.GetShipList().Should().Contain(shipList);
         }
 
         [TestMethod]
@@ -41,8 +41,8 @@ namespace Battleship.UnitTest
             var shipsByType = new Dictionary<ShipType, int> { { destroyerType, 1 } };
             var ship = new Ship(new Point(3, 2), new Point(3, 5), destroyerType);
             var shipList = new List<Ship> { ship };
-            shipManager.GetEnemyShipsByType().Returns(shipsByType);
-            shipManager.GetEnemyShipList(shipsByType, panelSize).Returns(shipList);
+            shipManager.GetShipsByType().Returns(shipsByType);
+            shipManager.GetShipList(shipsByType, panelSize).Returns(shipList);
             GameService target = new GameService(shipManager);
             target.InitializeGame(panelSize);
 
@@ -60,8 +60,8 @@ namespace Battleship.UnitTest
             var shipsByType = new Dictionary<ShipType, int> { { destroyerType, 1 } };
             var ship = new Ship(new Point(3, 2), new Point(3, 5), destroyerType);
             var shipList = new List<Ship> { ship };
-            shipManager.GetEnemyShipsByType().Returns(shipsByType);
-            shipManager.GetEnemyShipList(shipsByType, panelSize).Returns(shipList);
+            shipManager.GetShipsByType().Returns(shipsByType);
+            shipManager.GetShipList(shipsByType, panelSize).Returns(shipList);
             GameService target = new GameService(shipManager);
             target.InitializeGame(panelSize);
 
@@ -79,8 +79,8 @@ namespace Battleship.UnitTest
             var shipsByType = new Dictionary<ShipType, int> { { destroyerType, 1 } };
             var ship = new Ship(new Point(3, 2), new Point(3, 5), destroyerType);
             var shipList = new List<Ship> { ship };
-            shipManager.GetEnemyShipsByType().Returns(shipsByType);
-            shipManager.GetEnemyShipList(shipsByType, panelSize).Returns(shipList);
+            shipManager.GetShipsByType().Returns(shipsByType);
+            shipManager.GetShipList(shipsByType, panelSize).Returns(shipList);
             GameService target = new GameService(shipManager);
             target.InitializeGame(panelSize);
 
@@ -101,8 +101,8 @@ namespace Battleship.UnitTest
             var shipsByType = new Dictionary<ShipType, int> { { destroyerType, 1 } };
             var ship = new Ship(new Point(3, 2), new Point(3, 5), destroyerType);
             var shipList = new List<Ship> { ship };
-            shipManager.GetEnemyShipsByType().Returns(shipsByType);
-            shipManager.GetEnemyShipList(shipsByType, panelSize).Returns(shipList);
+            shipManager.GetShipsByType().Returns(shipsByType);
+            shipManager.GetShipList(shipsByType, panelSize).Returns(shipList);
             GameService target = new GameService(shipManager);
             target.InitializeGame(panelSize);
 
@@ -122,8 +122,8 @@ namespace Battleship.UnitTest
             var shipsByType = new Dictionary<ShipType, int> { { destroyerType, 1 } };
             var ship = new Ship(new Point(3, 2), new Point(3, 5), destroyerType);
             var shipList = new List<Ship> { ship };
-            shipManager.GetEnemyShipsByType().Returns(shipsByType);
-            shipManager.GetEnemyShipList(shipsByType, panelSize).Returns(shipList);
+            shipManager.GetShipsByType().Returns(shipsByType);
+            shipManager.GetShipList(shipsByType, panelSize).Returns(shipList);
             GameService target = new GameService(shipManager);
             target.InitializeGame(panelSize);
 
@@ -144,8 +144,8 @@ namespace Battleship.UnitTest
             var shipsByType = new Dictionary<ShipType, int> { { destroyerType, 1 } };
             var ship = new Ship(new Point(3, 2), new Point(3, 5), destroyerType);
             var shipList = new List<Ship> { ship };
-            shipManager.GetEnemyShipsByType().Returns(shipsByType);
-            shipManager.GetEnemyShipList(shipsByType, panelSize).Returns(shipList);
+            shipManager.GetShipsByType().Returns(shipsByType);
+            shipManager.GetShipList(shipsByType, panelSize).Returns(shipList);
             GameService target = new GameService(shipManager);
             target.InitializeGame(panelSize);
             var missPoint = new Point(0, 0);

@@ -56,7 +56,8 @@
     <Compile Include="Model\ShipType.cs" />
     <Compile Include="Services\ShipValidator.cs" />
     <Compile Include="Services\IGameService.cs" />
-    <Compile Include="Ui\UiService.cs" />
+    <Compile Include="Ui\UiConstants.cs" />
+    <Compile Include="Ui\UiHelper.cs" />
     <Compile Include="Ui\UserInterface.cs" />
   </ItemGroup>
   <ItemGroup>

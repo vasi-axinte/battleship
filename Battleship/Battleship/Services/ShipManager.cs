@@ -9,7 +9,7 @@ namespace Battleship.Services
 {
     public class ShipManager : IShipManager
     {
-        public Dictionary<ShipType, int> GetEnemyShipsByType()
+        public Dictionary<ShipType, int> GetShipsByType()
         {
             var battleshipType = new ShipType("Battleship", "B", 5);
             var destroyerType = new ShipType("Destroyer", "D", 4);
@@ -17,19 +17,19 @@ namespace Battleship.Services
             return new Dictionary<ShipType, int> { { battleshipType, 1 }, { destroyerType, 2 } };
         }
 
-        public List<Ship> GetEnemyShipList(Dictionary<ShipType, int> enemyShipsByType, int panelSize)
+        public List<Ship> GetShipList(Dictionary<ShipType, int> enemyShipsByType, int panelSize)
         {
             var existingShips = new List<Ship>();
 
             foreach (var keyValuePair in enemyShipsByType)
             {
-                GetAllShipsByType(keyValuePair.Key, keyValuePair.Value, existingShips, panelSize);
+                GenerateAllShipsByType(keyValuePair.Key, keyValuePair.Value, existingShips, panelSize);
             }
 
             return existingShips;
         }
 
-        private void GetAllShipsByType(ShipType shipType, int numberOfShipsByType, List<Ship> existingShips, int panelSize)
+        private void GenerateAllShipsByType(ShipType shipType, int numberOfShipsByType, List<Ship> existingShips, int panelSize)
         {
             var shipGenerator = new ShipGenerator();
 
@@ -44,7 +44,6 @@ namespace Battleship.Services
         {
             var shipValidator = new ShipValidator();
             Ship currentShip;
-
             do
             {
                 currentShip = shipGenerator.GenerateShip(shipType, panelSize);
